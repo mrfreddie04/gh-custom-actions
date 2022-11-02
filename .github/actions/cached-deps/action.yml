@@ -24,5 +24,5 @@ runs:
       if: inputs.caching != 'true' || steps.cache.outputs.cache-hit != 'true'
       run: |
         npm ci  
-        run: echo "cache='false'" >> $GITHUB_OUTPUT
+        echo "cache='false'" >> $GITHUB_OUTPUT
       shell: bash
