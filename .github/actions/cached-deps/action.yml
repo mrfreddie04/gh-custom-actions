@@ -12,9 +12,6 @@ outputs:
 runs:
   using: 'composite'
   steps:
-    - name: Default output
-      run: echo "::set-output name=cache::'true'"
-      shell: bash
     - name: Cache dependencies
       if: inputs.caching == 'true'
       id: cache
@@ -22,11 +19,14 @@ runs:
       with:
         path: node_modules
         key: deps-node-modules-${{ hashFiles('**/package-lock.json') }}
+    - name: Set output
+      run: echo "::set-output name=cache::'${{ inputs.caching == 'true' && steps.cache.outputs.cache-hit == 'true' }}'"
+      shell: bash        
     - name: Install dependencies
       id: install
       if: inputs.caching != 'true' || steps.cache.outputs.cache-hit != 'true'
       #echo "cache='false'" >> $GITHUB_OUTPUT
+      #echo "::set-output name=cache::'false'"
       run: |
-        npm ci         
-        echo "::set-output name=cache::'false'"
+        npm ci                 
       shell: bash
