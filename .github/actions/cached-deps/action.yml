@@ -25,7 +25,7 @@ runs:
       #echo "cache='false'" >> $GITHUB_OUTPUT
       #echo "::set-output name=cache::'false'"
       run: |
-        npm ci               
+        npm ci            
       shell: bash
     - name: Set output
       id: set-output
