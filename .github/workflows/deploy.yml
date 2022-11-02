@@ -68,12 +68,13 @@ jobs:
           path: ./dist
       - name: Output contents
         run: ls
-      - name: Deploy site
+      - name: Deploy site via Docker Action # via JS Action
         id: deploy
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}   
-        uses: ./.github/actions/deploy-s3-javascript  
+        # uses: ./.github/actions/deploy-s3-javascript  
+        uses: ./.github/actions/deploy-s3-docker 
         with:
           bucket: gha-custom-action-hosting-mct
           bucket-region: us-east-1
