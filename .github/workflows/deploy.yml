@@ -22,6 +22,7 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Load and install dependencies
+        id: load
         uses: ./.github/actions/cached-deps
       - name: Output information
         run: echo "Cache used? ${{ steps.load.outputs.used-cache }}"        
@@ -41,11 +42,12 @@ jobs:
       - name: Get code
         uses: actions/checkout@v3
       - name: Load and install dependencies
+        id: load
         uses: ./.github/actions/cached-deps
         with:
           caching: 'false'
       - name: Output information
-        run: echo "Cache used? ${{ steps.load.outputs.used-cache }}"          
+        run: echo "Cache used? ${{ steps.load.outputs.used-cache }}"     
       - name: Build website
         run: npm run build
       - name: Upload artifacts
