@@ -9,10 +9,12 @@ outputs:
   used-cache:
     description: 'Whether the cache was used.'
     value: ${{ steps.install.outputs.cache }}
-    default: 'true'
 runs:
   using: 'composite'
   steps:
+    - name: Default output
+      run: echo "::set-output name=cache::'true'"
+      shell: bash
     - name: Cache dependencies
       if: inputs.caching == 'true'
       id: cache
